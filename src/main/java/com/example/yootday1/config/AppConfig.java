@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     @Bean
     public ModelMapper modelMapper(){
-        //Tao object va cau hinh
+        //Tao object va cau hinh. MODEL MAPPER nen de STRICT
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setCollectionsMergeEnabled(true)
                 .setMatchingStrategy(MatchingStrategies.STRICT)

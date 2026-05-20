@@ -1,15 +1,16 @@
 package com.example.yootday1.controllers;
 
 import com.example.yootday1.common.ApiResponse;
-import com.example.yootday1.domain.entity.Course;
+import com.example.yootday1.common.exception.NotFoundException;
+import com.example.yootday1.dto.course.CourseResponse;
+import com.example.yootday1.dto.course.CourseUpsertRequest;
 import com.example.yootday1.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -17,32 +18,28 @@ import java.util.Optional;
 public class CourseController {
     private final CourseService courseService;
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Course>>> getCourse(){
-        return ResponseEntity.ok(ApiResponse.success(courseService.findAll()));
+    public ApiResponse<List<CourseResponse>> findAll(){
+        return ApiResponse.success(courseService.findAll());
     }
-    @GetMapping("{id}")
-    public ResponseEntity<ApiResponse<Course>> getCourseById(@PathVariable("id") Long id){
-        Optional<Course> course = courseService.findById(id);
-//        return course.map(value ->
-//                ResponseEntity.ok(ApiResponse.success(value)))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-        if(course.isPresent()){
-            return ResponseEntity.ok(ApiResponse.success(course.get()));
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{id}")
+    public ApiResponse<CourseResponse> findById(@PathVariable Long id){
+        return courseService.findById(id).map(ApiResponse::success)
+                .orElseGet(()-> ApiResponse.error("Not found", new CourseResponse()));
     }
     @PostMapping
-    public ResponseEntity<ApiResponse<Course>> create(@RequestBody Course course){
-        return ResponseEntity.ok(ApiResponse.success(courseService.save(course)));
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_STAFF')")
+    public ApiResponse<CourseResponse> create(@Valid @RequestBody CourseUpsertRequest req){
+        return ApiResponse.success(courseService.create(req));
     }
-    @PutMapping("{id}")
-    public ResponseEntity<ApiResponse<Course>> update(@PathVariable("id") Long id, @Valid @RequestBody Course course){
-        return ResponseEntity.ok(ApiResponse.success(courseService.updateCourse(id, course)));
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_STAFF')")
+    public ApiResponse<CourseResponse> update(@PathVariable Long id,@Valid @RequestBody CourseUpsertRequest req){
+        return ApiResponse.success(courseService.update(id,req));
     }
-    @DeleteMapping("{id}")
-    public ResponseEntity<ApiResponse<Void>> detele(@PathVariable("id") Long id){
-        courseService.deleteCourse(id);
-        return ResponseEntity.ok(ApiResponse.successMessage("Xoa Thanh cong"));
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ApiResponse<?> delete(@PathVariable Long id) throws NotFoundException {
+        courseService.delete(id);
+        return ApiResponse.successMessage("Xoa Thanh Cong");
     }
 }

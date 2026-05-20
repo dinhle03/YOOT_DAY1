@@ -1,6 +1,5 @@
 package com.example.yootday1.dto.student;
 
-import com.example.yootday1.domain.entity.Parent;
 import com.example.yootday1.domain.enums.Gender;
 import com.example.yootday1.domain.enums.StudentStatus;
 import jakarta.validation.constraints.*;

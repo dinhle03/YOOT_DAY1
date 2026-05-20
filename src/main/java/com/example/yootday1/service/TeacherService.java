@@ -1,7 +1,6 @@
 package com.example.yootday1.service;
 
 import com.example.yootday1.common.exception.NotFoundException;
-import com.example.yootday1.domain.entity.Teacher;
 import com.example.yootday1.dto.teacher.TeacherResponse;
 import com.example.yootday1.dto.teacher.TeacherUpsertRequest;
 

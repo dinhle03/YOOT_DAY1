@@ -1,13 +1,9 @@
 package com.example.yootday1.service.impl;
 
 import com.example.yootday1.common.exception.NotFoundException;
-import com.example.yootday1.domain.entity.Course;
 import com.example.yootday1.domain.entity.Parent;
-import com.example.yootday1.domain.entity.Student;
 import com.example.yootday1.dto.parent.ParentResponse;
 import com.example.yootday1.dto.parent.ParentUpsertRequest;
-import com.example.yootday1.dto.student.StudentResponse;
-import com.example.yootday1.dto.student.StudentUpsertRequest;
 import com.example.yootday1.repository.ParentRepository;
 import com.example.yootday1.service.ParentService;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +53,6 @@ public class ParentServiceImpl implements ParentService {
     }
 
     public void delete(Long id) throws NotFoundException {
-         parentRepository.deleteById(id);
         if(parentRepository.existsById(id)){
             parentRepository.deleteById(id);
         }else {

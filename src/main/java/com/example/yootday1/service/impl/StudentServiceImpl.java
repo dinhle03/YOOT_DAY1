@@ -2,7 +2,6 @@ package com.example.yootday1.service.impl;
 
 import com.example.yootday1.common.exception.NotFoundException;
 import com.example.yootday1.domain.entity.Student;
-import com.example.yootday1.dto.parent.ParentResponse;
 import com.example.yootday1.dto.student.StudentResponse;
 import com.example.yootday1.dto.student.StudentUpsertRequest;
 import com.example.yootday1.repository.ParentRepository;
@@ -56,7 +55,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void delete(Long id) throws NotFoundException {
-        studentRepository.deleteById(id);
         if(studentRepository.existsById(id)){
             studentRepository.deleteById(id);
         }else {

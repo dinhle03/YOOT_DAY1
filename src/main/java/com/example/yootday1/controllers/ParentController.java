@@ -2,20 +2,15 @@ package com.example.yootday1.controllers;
 
 import com.example.yootday1.common.ApiResponse;
 import com.example.yootday1.common.exception.NotFoundException;
-import com.example.yootday1.domain.entity.Course;
-import com.example.yootday1.domain.entity.Parent;
 import com.example.yootday1.dto.parent.ParentResponse;
 import com.example.yootday1.dto.parent.ParentUpsertRequest;
-import com.example.yootday1.dto.student.StudentResponse;
-import com.example.yootday1.dto.student.StudentUpsertRequest;
 import com.example.yootday1.service.ParentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/parents")
@@ -24,29 +19,33 @@ public class ParentController {
     private final ParentService parentService;
 
     @GetMapping
-    public ResponseEntity<List<ParentResponse>> findAll(){
-        return ResponseEntity.ok(parentService.findAll());
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_STAFF')")
+    public ApiResponse<List<ParentResponse>> findAll(){
+        return ApiResponse.success(parentService.findAll());
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<ParentResponse> findById(@PathVariable Long id){
-        return parentService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(()->ResponseEntity.notFound().build());
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_STAFF')")
+    public ApiResponse<ParentResponse> findById(@PathVariable Long id){
+        return parentService.findById(id).map(ApiResponse::success)
+                .orElseGet(()-> ApiResponse.error("Not found", new ParentResponse()));
     }
 
     @PostMapping
-    public ResponseEntity<ParentResponse> create(@Valid @RequestBody ParentUpsertRequest req){
-        return ResponseEntity.ok(parentService.create(req));
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_STAFF')")
+    public ApiResponse<ParentResponse> create(@Valid @RequestBody ParentUpsertRequest req){
+        return ApiResponse.success(parentService.create(req));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ParentResponse> update(@PathVariable Long id,@Valid @RequestBody ParentUpsertRequest req){
-        return ResponseEntity.ok(parentService.update(id,req));
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACADEMIC_STAFF')")
+    public ApiResponse<ParentResponse> update(@PathVariable Long id,@Valid @RequestBody ParentUpsertRequest req){
+        return ApiResponse.success(parentService.update(id,req));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) throws  NotFoundException{
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ApiResponse<?> delete(@PathVariable Long id) throws  NotFoundException{
         parentService.delete(id);
-        return ResponseEntity.ok().build();
+        return ApiResponse.successMessage("Xoa Thanh Cong");
     }
 }

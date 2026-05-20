@@ -6,23 +6,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "courses")
 @Data
 public class Course extends AuditableEntity {
-    @Column(columnDefinition = "varchar(20)")
+    @Column(name = "course_code", nullable = false, unique = true, length = 20)
     private String courseCode;
 
-    @Column(columnDefinition = "varchar(100)")
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(columnDefinition = "text")
+    @Column(length = 500)
     private String description;
 
-    @Column(columnDefinition = "varchar(20)")
-    private double tuitionFee;
+    @Column(name = "tuition_fee", nullable = false, precision = 12, scale = 2)
+    private BigDecimal tuitionFee = BigDecimal.ZERO;
 
-    private int totalSessions;
+    @Column(name = "total_sessions", nullable = false)
+    private Integer totalSessions = 24;
 
-    private byte isActive;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 }
