@@ -16,7 +16,7 @@ public class ScheduleSlotUpsertRequest {
     @Size(max = 20)
     private String slotCode;
     @NotNull
-    private Integer weekday;
+    private byte weekday;
     @NotNull
     private LocalTime startTime;
     @NotNull

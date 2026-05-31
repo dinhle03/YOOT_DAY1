@@ -9,7 +9,7 @@ public class ScheduleSlotResponse {
 
     private String slotCode;
 
-    private Integer weekday;
+    private byte weekday;
 
     private LocalTime startTime;
 
