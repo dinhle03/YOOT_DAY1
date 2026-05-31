@@ -9,6 +9,8 @@ import com.example.yootday1.repository.RefreshTokenSessionRepository;
 import com.example.yootday1.repository.UserRepository;
 import com.example.yootday1.security.JwtService;
 import com.example.yootday1.service.AuthService;
+import com.example.yootday1.service.EmailService;
+import com.example.yootday1.domain.enums.UserRole;
 import io.jsonwebtoken.JwtException;
 import com.example.yootday1.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,32 @@ public class AuthServiceImpl implements AuthService {
     private final JwtService jwtService;
     private final AppJwtProperties jwtProperties;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+
+    @Transactional
+    public void register(RegisterRequest request) {
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new BadRequestException("Username already exists");
+        }
+
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
+        user.setRole(UserRole.PARENT);
+        user.setIsActive(true);
+
+        userRepository.save(user);
+
+        emailService.sendAccountInfoEmail(
+                user.getEmail(),
+                user.getUsername(),
+                request.getPassword(),
+                user.getFullName()
+        );
+    }
 
     @Transactional
     public AuthResponse login(LoginRequest request) {

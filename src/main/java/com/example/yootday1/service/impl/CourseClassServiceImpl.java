@@ -41,7 +41,7 @@ public class CourseClassServiceImpl implements CourseClassService {
         }
 
         if (req.getScheduleSlotId() != null) {
-            scheduleSlotRepository.findById(req.getScheduleSlotId()).ifPresent(cc::setScheduleSlot);
+            scheduleSlotRepository.findById(req.getScheduleSlotId()).ifPresent(cc::setSlot);
         }
 
         if (req.getRoomId() != null) {

@@ -96,8 +96,8 @@ public class AttendanceServiceImpl implements AttendanceService {
         if (courseClass.getEndDate() != null && attendanceDate.isAfter(courseClass.getEndDate())) {
             throw new BadRequestException("Attendance date must not be after class end date");
         }
-        if (courseClass.getScheduleSlot() != null
-                && !matchesScheduledWeekday(attendanceDate, (int) courseClass.getScheduleSlot().getWeekday())) {
+        if (courseClass.getSlot() != null
+                && !matchesScheduledWeekday(attendanceDate, (int) courseClass.getSlot().getWeekday())) {
             throw new BadRequestException("Attendance date does not match the class schedule");
         }
     }

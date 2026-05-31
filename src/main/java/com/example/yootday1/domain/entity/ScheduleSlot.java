@@ -14,18 +14,16 @@ import java.time.LocalTime;
 @Getter
 @Table(name = "schedule_slots")
 public class ScheduleSlot extends AuditableEntity {
-    @Column(name = "slot_code", nullable = false, unique = true, length = 20)
+
+    @Column(columnDefinition = "varchar(20)")
     private String slotCode;
 
-    @Column(nullable = false)
     private byte weekday;
 
-    @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
-
-    @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
-    @Column(length = 255)
+    @Column(columnDefinition = "varchar(255)")
     private String note;
 }
+

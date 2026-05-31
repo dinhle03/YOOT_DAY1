@@ -12,15 +12,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenApiConfig {
-
+    private static final String SECURITY_SCHEME_NAME = "bearerAuth";
     @Bean
-    public OpenAPI yoEduOpenApi(@Value("${spring.application.name}") String applicationName) {
-        final String securitySchemeName = "jwt";
+    public OpenAPI yoEduOpenApi(@Value("day") String applicationName) {
         return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
                 .components(new Components()
-                        .addSecuritySchemes(securitySchemeName, new SecurityScheme()
-                                .name(securitySchemeName)
+                        .addSecuritySchemes(SECURITY_SCHEME_NAME, new SecurityScheme()
+                                .name(SECURITY_SCHEME_NAME)
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")
                                 .bearerFormat("JWT")

@@ -15,7 +15,7 @@ public class Parent extends AuditableEntity {
     @Column(name = "full_name", nullable = false, length = 100)
     private String fullName;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(length = 20)
     private String phone;
 
     @Column(length = 100)
@@ -24,10 +24,9 @@ public class Parent extends AuditableEntity {
     @Column(length = 255)
     private String address;
 
-    @Column(length = 20)
-    private String relationship;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
+    @Transient
     private Gender gender = Gender.OTHER;
+
+    @Transient
+    private String relationship;
 }

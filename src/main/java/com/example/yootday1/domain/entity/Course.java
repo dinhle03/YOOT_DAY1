@@ -14,21 +14,19 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 public class Course extends AuditableEntity {
-    @Column(name = "course_code", nullable = false, unique = true, length = 20)
+
+    @Column(columnDefinition = "varchar(20)")
     private String courseCode;
 
-    @Column(nullable = false, length = 100)
+    @Column(columnDefinition = "varchar(100)")
     private String name;
 
     @Column(length = 500)
     private String description;
 
-    @Column(name = "tuition_fee", nullable = false, precision = 12, scale = 2)
-    private BigDecimal tuitionFee = BigDecimal.ZERO;
+    @Column(name = "tuition_fee", columnDefinition = "decimal(12,2)")
+    private double tuitionFee;
 
-    @Column(name = "total_sessions", nullable = false)
-    private Integer totalSessions = 24;
-
-    @Column(name = "is_active", nullable = false)
+    private int totalSessions;
     private Boolean isActive = true;
 }

@@ -15,6 +15,12 @@ import java.security.Principal;
 public class AuthController {
     private final AuthService authService;
 
+    @PostMapping("/register")
+    public ApiResponse<Void> register(@Valid @RequestBody RegisterRequest request) {
+        authService.register(request);
+        return ApiResponse.successMessage("Registration successful. Account info sent to email.");
+    }
+
     @PostMapping("/login")
     public ApiResponse<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ApiResponse.success("Login successful", authService.login(request));
