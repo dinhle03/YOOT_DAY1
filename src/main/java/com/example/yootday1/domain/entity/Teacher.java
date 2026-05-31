@@ -3,11 +3,13 @@ package com.example.yootday1.domain.entity;
 import com.example.yootday1.domain.AuditableEntity;
 import com.example.yootday1.domain.enums.TeacherRole;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "teachers")
-@Data
+@Setter
+@Getter
 public class Teacher extends AuditableEntity {
     @Column(name = "teacher_code", nullable = false, unique = true, length = 20)
     private String teacherCode;

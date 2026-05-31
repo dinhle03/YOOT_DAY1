@@ -4,19 +4,21 @@ import com.example.yootday1.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
 @Entity
-@Data
+@Setter
+@Getter
 @Table(name = "schedule_slots")
 public class ScheduleSlot extends AuditableEntity {
     @Column(name = "slot_code", nullable = false, unique = true, length = 20)
     private String slotCode;
 
     @Column(nullable = false)
-    private Integer weekday;
+    private byte weekday;
 
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;

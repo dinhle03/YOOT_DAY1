@@ -3,13 +3,15 @@ package com.example.yootday1.domain.entity;
 import com.example.yootday1.domain.AuditableEntity;
 import com.example.yootday1.domain.enums.ClassStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "courses_classes")
-@Data
+@Table(name = "course_classes")
+@Setter
+@Getter
 public class CourseClass extends AuditableEntity {
     @Column(columnDefinition = "varchar(20)")
     private String classCode;
@@ -28,7 +30,7 @@ public class CourseClass extends AuditableEntity {
     @JoinColumn(name = "main_teacher_id", nullable = false)
     private Teacher mainTeacher;
     @ManyToOne
-    @JoinColumn(name = "assistant_teacher_id", nullable = false)
+    @JoinColumn(name = "assistant_teacher_id", nullable = true)
     private Teacher assistantTeacher;
 
     private LocalDate startDate;
@@ -36,8 +38,7 @@ public class CourseClass extends AuditableEntity {
     private LocalDate endDate;
 
     private int maxStudents;
-    @Column(columnDefinition = "decimal", precision = 13, scale = 2)
-    private double tuitionFee;
+    private float tuitionFee;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private ClassStatus status = ClassStatus.OPEN;

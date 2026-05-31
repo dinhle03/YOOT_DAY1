@@ -3,10 +3,12 @@ package com.example.yootday1.domain.entity;
 import com.example.yootday1.domain.AuditableEntity;
 import com.example.yootday1.domain.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Setter
+@Getter
 @Table(name = "users")
 public class User extends AuditableEntity {
     @Column(columnDefinition = "varchar(50)")

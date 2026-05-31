@@ -4,13 +4,15 @@ import com.example.yootday1.domain.AuditableEntity;
 import com.example.yootday1.domain.enums.Gender;
 import com.example.yootday1.domain.enums.StudentStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Setter
+@Getter
 @Table(name = "students")
 public class Student extends AuditableEntity {
 

@@ -4,13 +4,15 @@ import com.example.yootday1.domain.AuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "courses")
-@Data
+@Setter
+@Getter
 public class Course extends AuditableEntity {
     @Column(name = "course_code", nullable = false, unique = true, length = 20)
     private String courseCode;

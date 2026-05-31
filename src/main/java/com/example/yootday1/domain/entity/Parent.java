@@ -3,9 +3,11 @@ package com.example.yootday1.domain.entity;
 import com.example.yootday1.domain.AuditableEntity;
 import com.example.yootday1.domain.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "parents")
 public class Parent extends AuditableEntity {
