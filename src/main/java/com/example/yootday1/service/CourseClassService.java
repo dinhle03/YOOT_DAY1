@@ -1,6 +1,7 @@
 package com.example.yootday1.service;
 
 import com.example.yootday1.common.exception.NotFoundException;
+import com.example.yootday1.domain.entity.CourseClass;
 import com.example.yootday1.dto.courseClass.CourseClassResponse;
 import com.example.yootday1.dto.courseClass.CourseClassUpsertRequest;
 
@@ -13,4 +14,5 @@ public interface CourseClassService {
     CourseClassResponse create(CourseClassUpsertRequest req);
     CourseClassResponse update(Long id, CourseClassUpsertRequest req) throws NotFoundException;
     void delete(Long id) throws NotFoundException;
+    CourseClass getCourseClass(Long id) throws NotFoundException;
 }

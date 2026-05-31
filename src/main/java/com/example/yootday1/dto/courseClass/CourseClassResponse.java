@@ -31,7 +31,7 @@ public class CourseClassResponse {
     private LocalDate startDate;
     private LocalDate endDate;
     private int maxStudents;
-    private double tuitionFee;
+    private float tuitionFee;
     private ClassStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -18,6 +18,6 @@ public class CourseClassUpsertRequest {
     @NotNull LocalDate startDate;
     @NotNull LocalDate endDate;
     @NotNull @Min(1) Integer maxStudents;
-    @NotNull @DecimalMin("0.0") double tuitionFee;
+    @NotNull float tuitionFee;
     @NotNull ClassStatus status;
 }
